@@ -1,8 +1,8 @@
 
 //Global Variables
-var stringsContainer = ["Hello World!", "This is my first Titanium App", "Visual Frameworks 1312"];
+var stringsContainer = ["Hello World!", "This is my first Titanium App", "Visual Frameworks 1312", "test", "test2"];
 var stringsButton = ["Previous", "Next"];
-var counter1 = 0;
+var counter2 = stringsContainer.length - 1;
 //End of Global Variables
 
 
@@ -50,7 +50,7 @@ var mainLabel = Ti.UI.createView({
 
 //Main Label's Text creator
 var labelText = Ti.UI.createLabel({
-    text: stringsContainer[1],
+    text: stringsContainer[0],
     textAlign: "center",
     color: "#333",
     font: {fontSize: 14, fontFamily: "Helvetica"},
@@ -95,7 +95,7 @@ var labelTextButton2 = Ti.UI.createLabel({
     font: {fontSize: 14, fontFamily: "Helvetica"}
 });
 
-
+var secondJSfile = require("customScripts");
 
 //Calls
 mainWin.add(iOSDefaultMenuBar);

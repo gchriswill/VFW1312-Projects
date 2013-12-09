@@ -1,6 +1,6 @@
 //Main Window Creatior
 var mainWin = Ti.UI.createWindow({
-    title: "Family List"
+    title: "Contacts"
 });
 
 //Navigation Controler Window Creatior

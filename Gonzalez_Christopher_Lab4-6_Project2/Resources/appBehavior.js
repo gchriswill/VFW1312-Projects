@@ -1,14 +1,14 @@
 
 //JSON Data Objects
 var memberssData = {
-    "familyData"    : {
-        "sectTitle" : "Family members",
+    "familyContacts"    : {
+        "sectTitle" : "Family Contacts",
         "secFooter" : "Totall members: ",
         "members"   : [{
             "name"     : "Christopher",
             "last"     : "Gonzalez",
             "AKA"      : "GchrisWill",
-            "phone"    : "239-2577522",
+            "phone"    : "239-257-7522",
             "email"    : "gchriswill@me.com",
             "relation" : "Myself"
         },{
@@ -34,8 +34,8 @@ var memberssData = {
             "relation" : "Brother"
         }]
     },
-    "nonFamilyData" : {
-        "sectTitle" : "Non Family members",
+    "generalContacts" : {
+        "sectTitle" : "General Contacts",
         "secFooter" : "Totall members: ",
         "members"   : [{
             "name"      : "Gaby",
@@ -60,16 +60,16 @@ var memberssData = {
             "relation"  : "Roomate 2"
         }]
     },
-    "extraNonFamily": {
-        "sectTitle" : "Extra Non Family members",
+    "academicContacts": {
+        "sectTitle" : "Academic Contacts",
         "secFooter" : "Totall members: ",
         "members"   : [{
             "name"      : "Chad",
             "last"      : "Gibson",
             "AKA"       : "Chaddy",
             "phone"     : "N/A",
-            "email"     : "N/A",
-            "relation"  : "Instructor"
+            "email"     : "visualframeworks@gmail.com",
+            "relation"  : "VFW1213's Instructor"
         },{  
             "name"      : "Richard",
             "last"      : "Uknown",
@@ -90,8 +90,8 @@ var myTable = Ti.UI.createTableView({
 var detailInfo = function(){
   //Second main window creator
   var detailWin = Ti.UI.createWindow({
-      title: "List memberss",
-      backgroundColor: "#fff"
+      title: this.title,
+      backgroundColor: "#cecece"
   });
   
   //Detail Label for holding text creator
@@ -112,7 +112,7 @@ for (var n in memberssData){
     });
     for (var i = 0, j = memberssData[n].members.length; i < j; i++){
         var tableRows = Ti.UI.createTableViewRow({
-            title:    memberssData[n].members[i].name,
+            title:    memberssData[n].members[i].name + " " + memberssData[n].members[i].last,
             
             //Declaring custom properties to pass them to detailInfo function
             name:     "Name: "     + memberssData[n].members[i].name,

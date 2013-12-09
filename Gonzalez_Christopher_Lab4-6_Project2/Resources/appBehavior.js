@@ -1,7 +1,7 @@
 
 //JSON Data Objects
 var memberssData = {
-    "familyData"   : {
+    "familyData"    : {
         "sectTitle" : "Family members",
         "secFooter" : "Totall members: ",
         "members"   : [{
@@ -37,7 +37,7 @@ var memberssData = {
     "nonFamilyData" : {
         "sectTitle" : "Non Family members",
         "secFooter" : "Totall members: ",
-        "members"    : [{
+        "members"   : [{
             "name"      : "Gaby",
             "last"      : "Serrano",
             "AKA"       : "SgabyWill",
@@ -50,13 +50,20 @@ var memberssData = {
             "AKA"       : "MGris",
             "phone"     : "N/A",
             "email"     : "N/A",
-            "relation"  : "Roomate"
+            "relation"  : "Main Roomate"
+        },{  
+            "name"      : "Ben",
+            "last"      : "Melendez",
+            "AKA"       : "Mben",
+            "phone"     : "N/A",
+            "email"     : "N/A",
+            "relation"  : "Roomate 2"
         }]
     },
-    "extraNonFamily " : {
+    "extraNonFamily": {
         "sectTitle" : "Extra Non Family members",
         "secFooter" : "Totall members: ",
-        "members"    : [{
+        "members"   : [{
             "name"      : "Chad",
             "last"      : "Gibson",
             "AKA"       : "Chaddy",
@@ -72,12 +79,12 @@ var memberssData = {
             "relation"  : "Lab Specialist"
         }]
     }
-};
+};//End of JSON Data
 
 //Table View creator
 var myTable = Ti.UI.createTableView({
     style: Ti.UI.iPhone.TableViewStyle.GROUPED
-});
+});//End
 
 //Detail Information function Window creator
 var detailInfo = function(){
@@ -94,7 +101,7 @@ var detailInfo = function(){
   });
   detailWin.add(detailLabel);
   navWin.openWindow(detailWin, {animate: true});
-};
+};//End
 
 //Global Table's Section and Row creator and event listener assigner 
 var sections = [];
@@ -107,12 +114,12 @@ for (var n in memberssData){
         var tableRows = Ti.UI.createTableViewRow({
             title:    memberssData[n].members[i].name,
             
-            //Passing Properties to detailInfo function
-            name:     "Name: " + memberssData[n].members[i].name,
-            last:     "Last: " + memberssData[n].members[i].last,
-            AKA:      "AKA: " + memberssData[n].members[i].AKA,
-            phone:    "Phone: " + memberssData[n].members[i].phone,
-            email:    "Email: " + memberssData[n].members[i].email,
+            //Declaring custom properties to pass them to detailInfo function
+            name:     "Name: "     + memberssData[n].members[i].name,
+            last:     "Last: "     + memberssData[n].members[i].last,
+            AKA:      "AKA: "      + memberssData[n].members[i].AKA,
+            phone:    "Phone: "    + memberssData[n].members[i].phone,
+            email:    "Email: "    + memberssData[n].members[i].email,
             relation: "Relation: " + memberssData[n].members[i].relation,
             hasChild: true
         });
@@ -120,7 +127,7 @@ for (var n in memberssData){
         tableRows.addEventListener("click", detailInfo);
     };
     sections.push(tableSection);
-};
+};//End
 
 //Calls
 myTable.setData(sections);

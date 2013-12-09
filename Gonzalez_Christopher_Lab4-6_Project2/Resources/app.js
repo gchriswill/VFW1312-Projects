@@ -1,4 +1,3 @@
-
 //Main Window Creatior
 var mainWin = Ti.UI.createWindow({
     title: "Family List"
@@ -16,7 +15,10 @@ var menuBar = Ti.UI.createView({
     backgroundColor: "#fff",
     opacity: 0.6
 });
+
+//Second JS file link
 var secondJSfile = require("appBehavior");
 
+//Calls
 navWin.add(menuBar);
 navWin.open();

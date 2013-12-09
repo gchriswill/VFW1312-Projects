@@ -10,7 +10,7 @@ var memberssData = {
             "AKA"      : "GchrisWill",
             "phone"    : "239-2577522",
             "email"    : "gchriswill@me.com",
-            "relation" : "mySelf"
+            "relation" : "Myself"
         },{
             "name"     : "Wilma",
             "last"     : "Melendez",
@@ -53,23 +53,23 @@ var memberssData = {
             "relation"  : "Roomate"
         }]
     },
-    "nonFamilyData1" : {
-        "sectTitle" : "Non Family members",
+    "extraNonFamily " : {
+        "sectTitle" : "Extra Non Family members",
         "secFooter" : "Totall members: ",
         "members"    : [{
-            "name"      : "Gaby",
-            "last"      : "Serrano",
-            "AKA"       : "SgabyWill",
+            "name"      : "Chad",
+            "last"      : "Gibson",
+            "AKA"       : "Chaddy",
             "phone"     : "N/A",
             "email"     : "N/A",
-            "relation"  : "Brother in law"
+            "relation"  : "Instructor"
         },{  
-            "name"      : "Griselle",
-            "last"      : "Melendez",
-            "AKA"       : "MGris",
+            "name"      : "Richard",
+            "last"      : "Uknown",
+            "AKA"       : "Richy",
             "phone"     : "N/A",
             "email"     : "N/A",
-            "relation"  : "Roomate"
+            "relation"  : "Lab Specialist"
         }]
     }
 };
@@ -79,8 +79,9 @@ var myTable = Ti.UI.createTableView({
     style: Ti.UI.iPhone.TableViewStyle.GROUPED
 });
 
-//Detail Information Window creator
+//Detail Information function Window creator
 var detailInfo = function(){
+  //Second main window creator
   var detailWin = Ti.UI.createWindow({
       title: "List memberss",
       backgroundColor: "#fff"
@@ -88,13 +89,14 @@ var detailInfo = function(){
   
   //Detail Label for holding text creator
   var detailLabel = Ti.UI.createLabel({
-       text: this.name + " \n" + this.last  + " \n" + this.AKA  + " \n" + this.phone  + " \n" + this.email + " \n" + this.relation
+       text: this.name + " \n" + this.last  + " \n" + this.AKA  + " \n" + this.phone  + " \n" + this.email + " \n" + this.relation,
+       font: {fontSize: 18, fontFamyly: "Arial"}
   });
   detailWin.add(detailLabel);
   navWin.openWindow(detailWin, {animate: true});
 };
 
-//Global Table's Section and Row creator and event listener asigner 
+//Global Table's Section and Row creator and event listener assigner 
 var sections = [];
 for (var n in memberssData){
     var tableSection = Ti.UI.createTableViewSection({
@@ -104,12 +106,14 @@ for (var n in memberssData){
     for (var i = 0, j = memberssData[n].members.length; i < j; i++){
         var tableRows = Ti.UI.createTableViewRow({
             title:    memberssData[n].members[i].name,
-            name:     memberssData[n].members[i].name,
-            last:     memberssData[n].members[i].last,
-            AKA:      memberssData[n].members[i].AKA,
-            phone:    memberssData[n].members[i].phone,
-            email:    memberssData[n].members[i].email,
-            relation: memberssData[n].members[i].relation,
+            
+            //Passing Properties to detailInfo function
+            name:     "Name: " + memberssData[n].members[i].name,
+            last:     "Last: " + memberssData[n].members[i].last,
+            AKA:      "AKA: " + memberssData[n].members[i].AKA,
+            phone:    "Phone: " + memberssData[n].members[i].phone,
+            email:    "Email: " + memberssData[n].members[i].email,
+            relation: "Relation: " + memberssData[n].members[i].relation,
             hasChild: true
         });
         tableSection.add(tableRows);
@@ -118,6 +122,6 @@ for (var n in memberssData){
     sections.push(tableSection);
 };
 
+//Calls
 myTable.setData(sections);
-
 mainWin.add(myTable);

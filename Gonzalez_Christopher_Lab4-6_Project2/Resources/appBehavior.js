@@ -72,7 +72,7 @@ var memberssData = {
             "relation"  : "VFW1213's Instructor"
         },{  
             "name"      : "Richard",
-            "last"      : "Uknown",
+            "last"      : "Huthson",
             "AKA"       : "Richy",
             "phone"     : "N/A",
             "email"     : "N/A",
@@ -86,29 +86,12 @@ var myTable = Ti.UI.createTableView({
     style: Ti.UI.iPhone.TableViewStyle.GROUPED
 });//End
 
-//Detail Information function Window creator
-var detailInfo = function(){
-  //Second main window creator
-  var detailWin = Ti.UI.createWindow({
-      title: this.title,
-      backgroundColor: "#cecece"
-  });
-  
-  //Detail Label for holding text creator
-  var detailLabel = Ti.UI.createLabel({
-       text: this.name + " \n" + this.last  + " \n" + this.AKA  + " \n" + this.phone  + " \n" + this.email + " \n" + this.relation,
-       font: {fontSize: 18, fontFamyly: "Arial"}
-  });
-  detailWin.add(detailLabel);
-  navWin.openWindow(detailWin, {animate: true});
-};//End
-
 //Global Table's Section and Row creator and event listener assigner 
 var sections = [];
 for (var n in memberssData){
     var tableSection = Ti.UI.createTableViewSection({
         headerTitle: memberssData[n].sectTitle,
-        footerTitle: memberssData[n].secFooter + memberssData[n].members.length
+        footerTitle: memberssData[n].secFooter + memberssData[n].members.length,
     });
     for (var i = 0, j = memberssData[n].members.length; i < j; i++){
         var tableRows = Ti.UI.createTableViewRow({
@@ -124,10 +107,26 @@ for (var n in memberssData){
             hasChild: true
         });
         tableSection.add(tableRows);
-        tableRows.addEventListener("click", detailInfo);
     };
     sections.push(tableSection);
 };//End
+
+//Event Listener and Detail Information function Window creator
+myTable.addEventListener("click", function(eventHolder){
+  //Second main window creator
+  var detailWin = Ti.UI.createWindow({
+      title: eventHolder.source.title,
+      backgroundColor: "#cecece"
+  });
+  
+  //Detail Label for holding text creator
+  var detailLabel = Ti.UI.createLabel({
+       text: eventHolder.source.name + " \n" + eventHolder.source.last  + " \n" + eventHolder.source.AKA  + " \n" + eventHolder.source.phone  + " \n" + eventHolder.source.email + " \n" + eventHolder.source.relation,
+       font: {fontSize: 18, fontFamyly: "Arial"}
+  });
+  detailWin.add(detailLabel);
+  navWin.openWindow(detailWin, {animate: true});
+});
 
 //Calls
 myTable.setData(sections);

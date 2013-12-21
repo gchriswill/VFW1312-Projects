@@ -64,13 +64,15 @@ function masterFunction() {
     var lengthCounter = myGalleryImagesCount.length - 1;
     
     //variable that holds the animation module style used by the back button 
-    var backAnimationStyle = Ti.UI.iPhone.AnimationStyle.CURL_DOWN;
+    var backAnimationStyle = Ti.UI.iPhone.AnimationStyle.FLIP_FROM_LEFT;
     
     //variable that holds the animation module style used by the next button
-    var nextAnimationStyle = Ti.UI.iPhone.AnimationStyle.CURL_UP;
+    var nextAnimationStyle = Ti.UI.iPhone.AnimationStyle.FLIP_FROM_RIGHT;
     //End of global variables
+     var test1 = [];
+     
+     var test2 = [];
     
-
     //Second Main Window
     var secondMainWindow = Ti.UI.createWindow({
         title: "Gallery's Thumbnails",
@@ -126,7 +128,7 @@ function masterFunction() {
         
         //Conditional that check if the Images containers had been clicked
         if (e.source.verificator == true){
-                
+               
             //Third Main Window
             var thirdMainWindow = Ti.UI.createWindow({
                 title: e.source.title,
@@ -149,7 +151,6 @@ function masterFunction() {
                 index: e.source.index
             });
             
-            
             //Back Button
             var backButton = Ti.UI.createView({
                 backgroundImage: "backArrow.png",
@@ -160,6 +161,7 @@ function masterFunction() {
                 backgroundColor: "#ccc",
                 opacity: 0.2,
                 borderRadius: 10,
+                zIndex: 2,
                 index: e.source.index
             });
             
@@ -173,9 +175,13 @@ function masterFunction() {
                 backgroundColor: "#ccc",
                 opacity: 0.2,
                 borderRadius: 10,
+                zIndex: 2,
                 index: e.source.index
             });
-          
+            
+            
+            test1[0] = secondMyImagesContainers;
+            
             //Adding the Image Container and buttons to the Third Main Window
             thirdMainWindow.add(nextButton);
             thirdMainWindow.add(backButton);
@@ -192,15 +198,24 @@ function masterFunction() {
             //varialble that holds the current image's array index being use by the for loop and will be used by the next button
             var nextCounter = nextButton.index;
             
+            
+            
             //previous and next images feature function 
             var newViewFunction = function(passedBackCounter, passedAnimationStyle){
-               
+                //secondMyImagesContainers = null;
                 //New Image View
                 var newView = Titanium.UI.createImageView({
                     image: "imgSrc/" + myGalleryImagesCount[passedBackCounter],
                     width: 304,
                     height: 202,
                 });
+                
+                if (thirdMainWindow.orientation == 3 || thirdMainWindow.orientation == 4 ){
+                    
+                    newView.height = "100%";
+                    newView.width = "100%";
+                
+                };
                     
                 //Animation Method
                 secondMyImagesContainers.animate({
@@ -210,36 +225,38 @@ function masterFunction() {
                 
                 //Third Main Window Title changer, "nulling" the image property of the second my image container and overwriting the counter variable values   
                 thirdMainWindow.title = myGalleryImagesCount[passedBackCounter];
+                
                 secondMyImagesContainers.backgroundImage = null;
+                
                 backCounter = passedBackCounter;
                 nextCounter = passedBackCounter;
+                test2[0] = newView;
+                
             };
             
+            if (thirdMainWindow.orientation == 3 || thirdMainWindow.orientation == 4 ){
+                    
+                secondMyImagesContainers.height = "100%";
+                secondMyImagesContainers.width = "100%";
+                
+            };
+            
+            //Back Button Event Listener
             backButton.addEventListener("click", function(e){
                 
                 //Button presed indicator 
                 backButton.opacity = 0.3;
+                
                 //Conditional that check the index position of the current image, choose the presviuos image and track the image index 
                 if (secondMyImagesContainers.backgroundImage == ("imgSrc/" + myGalleryImagesCount[0]) || backCounter == 0){
-                    
-                    //Alert test for debugging purposes
-                    //alert("First \"if ()\" Executed! " + "Arrary = " + (myGalleryImagesCount.length - 1) );
                     
                     backCounter = lengthCounter;
                     newViewFunction(backCounter, backAnimationStyle);
                    
                 } else if (backCounter > 0 || secondMyImagesContainers.backgroundImage == !("imgSrc/" + myGalleryImagesCount[0]) ){
                     
-                    //Alert test for debugging purposes
-                    //alert("Second \"else if ()\" Executed! Arrary = " + (myGalleryImagesCount.length - 1) );
-                    
                     backCounter--;
                     newViewFunction(backCounter, backAnimationStyle);
-                    
-                } else {
-                    
-                    //Alert test for debugging purposes
-                    //alert("Something went WRONG!!! Array = " + (myGalleryImagesCount.length - 1) );
                     
                 };//End Of Conditional
                 
@@ -248,9 +265,10 @@ function masterFunction() {
                 
             });//End Of Back Button's Event Listener
              
+            
             //Next Button Event Listener 
             nextButton.addEventListener("click", function(e){
-               
+                
                 //Button presed indicator  
                 nextButton.opacity = 0.3;
                 
@@ -271,11 +289,6 @@ function masterFunction() {
                     nextCounter++;
                     newViewFunction(nextCounter, nextAnimationStyle);
                     
-                } else {
-                    
-                    //Alert test for debugging purposes
-                    alert("Something went WRONG!!! Array = " + (myGalleryImagesCount.length - 1) );
-                
                 };//End Of Conditional
                 
                 //Button presed indicator 
@@ -284,22 +297,45 @@ function masterFunction() {
             });//End Of Next Button
         
         };//End Of Conditional that check if the Images containers had been clicked
-    
+        
     });//End Of Event listener propagation technique
     
     //Event Listaner controler for orientation changes
     Ti.Gesture.addEventListener("orientationchange", function(e){
         
-        //Alert test for debugging purposes
-        //alert("Change Detected");
-        
-        //Recalculating the device's display width value
         var secondCalculationPlatformWidth = Ti.Platform.displayCaps.platformWidth;
-        
+            
         //Seting the thumnails new width value
         for (var i = 0, j = imagesHolderArray.length; i < j; i++){
             imagesHolderArray[i].width = (secondCalculationPlatformWidth / imagesPerRow) - (imagesTotalSpace / imagesPerRow);
         };
+        
+        if( e.orientation == 3 || e.orientation == 4 ){
+            if(test1.length >= 1){
+                    test1[0].width = "100%";
+                    test1[0].height = "100%";
+                };
+                
+                if(test2.length >= 1){
+                    test2[0].width = "100%";
+                    test2[0].height = "100%";
+                };
+            
+        }
+        
+        if ( e.orientation == 1 || e.orientation == 2 ){
+            
+            if(test1.length >=1){
+                test1[0].width = 304;
+                test1[0].height = 202;
+            };
+            
+            if(test2.length >= 1){
+                test2[0].width = 304;
+                test2[0].height = 202;
+            };
+        };
+        
         
     });
     

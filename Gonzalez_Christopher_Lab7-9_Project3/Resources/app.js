@@ -6,7 +6,7 @@ Ti.UI.setBackgroundColor("#fff");
 
 //Main Window
 var mainWindow = Ti.UI.createWindow({
-    title: "GchrisWill's Photo Gallery",
+    title: "My Full Sail Gallery",
     titleAttributes: {
         color: "black",
         font: {

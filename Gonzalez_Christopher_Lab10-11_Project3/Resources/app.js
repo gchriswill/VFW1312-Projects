@@ -1,4 +1,8 @@
-var mainData = {
+
+
+var targetHeight      = Ti.Platform.displayCaps.platformHeight;
+//alert(targetHeight);
+var mainData  = {
     
     "extraFilesJS" : [
         "extraJS/firstWin.js", 
@@ -18,13 +22,19 @@ var pageArray = [];
 var mainWindow = Ti.UI.createWindow({
     title: "Apple's WWDC Hub",
     backgroundColor: "#fff",
-    backgroundImage: "appWall3.png",
-    backgroundLeftCap: "100%",
-    backgroundTopCap: "100%",
+    backgroundImage: "appWall4.png",
+    backgroundLeftCap: 0,
+    backgroundTopCap: 0,
     barColor: "#fff",
     url: null,
     layout:"vertical"
 });
+
+mainWindow.orientationModes = [
+        Ti.UI.LANDSCAPE_LEFT,
+        Ti.UI.LANDSCAPE_RIGHT,
+        Ti.UI.PORTRAIT
+];
 
 var navWindow = Ti.UI.iOS.createNavigationWindow({
     window: mainWindow
@@ -33,15 +43,21 @@ var navWindow = Ti.UI.iOS.createNavigationWindow({
 for (var i = 0, j = mainData.extraFilesJS.length; i < j; i++){
     var pageViews = Ti.UI.createView({
         backgroundColor: "#fff",
-        borderRadius: 45,
+        borderRadius: 50,
         borderColor: "#cecece",
         opacity: 0.8,
-        width: "30%",
-        height: 90,
-        top: 10,
+        width: 100,
+        height: 100,
         prop: "newPage" + i,
         index: i
     });
+    
+    if (targetHeight == 480){
+        pageViews.top = 16.5;
+    }else{
+        pageViews.top = 38;
+    };
+    
     var pageViewLabels = Ti.UI.createLabel({
         color: "#000",
         text: mainData.labelsPack[i],
@@ -61,13 +77,19 @@ for (var i = 0, j = mainData.extraFilesJS.length; i < j; i++){
 
 var labelViewContainer = Ti.UI.createView({
     backgroundColor: "transparent",
+    zIndex: 2,
+    
+    width: "100%"
 });
 
 var labelView = Ti.UI.createView({
     backgroundColor: "#fff",
     opacity: 0.8,
     height: 50,
-    bottom: 0
+    width: "100%",
+    bottom: 0,
+    
+        
 });
 
 var mainLabel = Ti.UI.createLabel({
@@ -79,6 +101,7 @@ var mainLabel = Ti.UI.createLabel({
         fontWeight: "bold"
     },
     height: 50,
+    width: "100%"
 });
 
 var appBehavior = require("appbehavior");

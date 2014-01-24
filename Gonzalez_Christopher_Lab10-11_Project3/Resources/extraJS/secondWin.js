@@ -115,7 +115,7 @@ for (var n in wwdcData){
 
 myTable.addEventListener("click", function(e){
     
-    var newHeight      = Ti.Platform.displayCaps.platformHeight;
+    var newHeight    = Ti.Platform.displayCaps.platformHeight;
   
     var detailWindow = Ti.UI.createWindow({
         title: e.source.title,
@@ -231,15 +231,12 @@ myTable.addEventListener("click", function(e){
         showVerticalScrollIndicator: true,
         scrollIndicatorStyle: 1,
         backgroundColor: "gray",
-        //borderColor: "#333",
-        //borderRadius: "2",
         layout: "vertical",
         height:  newHeight - 390,
         top: wwdcPagingImagesView.top + wwdcPagingImagesView.height,
         left: 10,
         right: 10,
         touchEnabled: false
-        //bottom: 10
         
     });
   
@@ -274,34 +271,37 @@ myTable.addEventListener("click", function(e){
 
 var scrollTimerFunction = function(descLabelHolder){
     
-    var counter = 0;
+    var counter1 = 0;
     
     var scrollTimer = setInterval(function(){
-        descLabelHolder.scrollTo(0, counter);
-        counter++;
+        descLabelHolder.scrollTo(0, counter1);
+        counter1++;
         
-        if( counter == 120){
+        if( counter1 == 120){
             clearInterval(scrollTimer);
             descLabelHolder.scrollTo(0, 0);
             descLabelHolder.touchEnabled = true;
+            counter1 = 0;
         };
         
     }, 150);
+    
 };
 
 var pagingTimerFunction = function(wwdcPagingImagesView){
     
-    var counter = wwdcPagingImagesView.currentPage;
+    var counter2 = wwdcPagingImagesView.currentPage;
     
     var paginTimer = setInterval(function(){
         
-        if(counter > wwdcPagingImagesView.views.length){
+        if(counter2 > wwdcPagingImagesView.views.length){
             clearInterval(paginTimer);
             wwdcPagingImagesView.currentPage = 0;
             wwdcPagingImagesView.touchEnabled = true;
+            counter2 = 0;
         };
-        wwdcPagingImagesView.currentPage = counter;
-        counter++;
+        wwdcPagingImagesView.currentPage = counter2;
+        counter2++;
         
     }, 3000);
 };
